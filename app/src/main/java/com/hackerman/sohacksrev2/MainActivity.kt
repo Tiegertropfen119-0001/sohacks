@@ -20,6 +20,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.slider.Slider
 import java.util.UUID
 
+
+
 class MainActivity : AppCompatActivity() {
 
     // BLE
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var bluetoothGatt: BluetoothGatt? = null
     private var writeChar: BluetoothGattCharacteristic? = null
     private var notifyChar: BluetoothGattCharacteristic? = null
+
 
     // UI
     private lateinit var btnConnect: MaterialButton
@@ -373,8 +376,13 @@ class MainActivity : AppCompatActivity() {
         btn25kmh.setOnClickListener { sendHex(getSpeedCommand(25)) }
         btn30kmh.setOnClickListener { sendHex(getSpeedCommand(30)) }
 
+
+        val advancedContainer = findViewById<androidx.core.widget.NestedScrollView>(R.id.advancedContainer)
+
+// Switch zeigt/versteckt den dynamischen Container (ohne Animation)
         switchAdvanced.setOnCheckedChangeListener { _, isChecked ->
-            layoutAdvancedContent.visibility = if (isChecked) View.VISIBLE else View.GONE
+            advancedContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
+            advancedContainer.requestLayout() // sorgt für sofortiges Re-Layout im ConstraintLayout
         }
 
         // === Advanced Spinner Setup (1..254) ===
