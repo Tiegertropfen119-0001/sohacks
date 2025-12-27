@@ -7,7 +7,9 @@ Die App lässt sich einfach mit eurem Scooter verbinden und erleichtert die Tuni
 Ich habe sie schon länger privat genutzt und dachte mir, dass ich sie auch hier mal teilen könnte.  
 Falls es Probleme gibt, könnt ihr euch gerne melden.  
 Getestet wurde die App bisher nur an meinem eigenen Scooter.
-
+---
+# Download 
+## https://github.com/Tiegertropfen119-0001/sohacks/releases
 ---
 
 ## Hinweis ⚠️
