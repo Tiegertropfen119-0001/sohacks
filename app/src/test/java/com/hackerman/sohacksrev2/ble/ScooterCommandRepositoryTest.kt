@@ -113,7 +113,7 @@ class ScooterCommandRepositoryTest {
 
     @Test
     fun testGetAdvancedModeCommand_Mode254() {
-        val command = ScooterCommandRepository.getAdvancedModeCommand(254)
+        val command = ScooterCommandRepository.getAdvancedModeCommand(ScooterCommandRepository.MAX_MODE)
         assertNotNull(command)
         command?.let {
             assertTrue(it.startsWith("D706A3"))
@@ -128,7 +128,7 @@ class ScooterCommandRepositoryTest {
 
     @Test
     fun testGetAdvancedModeCommand_InvalidMode_TooHigh() {
-        val command = ScooterCommandRepository.getAdvancedModeCommand(255)
+        val command = ScooterCommandRepository.getAdvancedModeCommand(ScooterCommandRepository.MAX_MODE + 1)
         assertNull(command)
     }
 
@@ -151,13 +151,13 @@ class ScooterCommandRepositoryTest {
     fun testIsValidMode_ValidRanges() {
         assertTrue(ScooterCommandRepository.isValidMode(0))
         assertTrue(ScooterCommandRepository.isValidMode(127))
-        assertTrue(ScooterCommandRepository.isValidMode(254))
+        assertTrue(ScooterCommandRepository.isValidMode(ScooterCommandRepository.MAX_MODE))
     }
 
     @Test
     fun testIsValidMode_InvalidRanges() {
         assertFalse(ScooterCommandRepository.isValidMode(-1))
-        assertFalse(ScooterCommandRepository.isValidMode(255))
+        assertFalse(ScooterCommandRepository.isValidMode(ScooterCommandRepository.MAX_MODE + 1))
         assertFalse(ScooterCommandRepository.isValidMode(1000))
     }
 

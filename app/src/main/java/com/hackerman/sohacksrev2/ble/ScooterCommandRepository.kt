@@ -9,6 +9,9 @@ package com.hackerman.sohacksrev2.ble
  */
 object ScooterCommandRepository {
 
+    /** Maximum mode number supported for advanced mode commands */
+    const val MAX_MODE = 254
+
     /**
      * Available driving modes for the scooter.
      */
@@ -30,12 +33,15 @@ object ScooterCommandRepository {
     /**
      * Generates a command to set the driving mode.
      * 
+     * Note: ECO mode uses a different command format (D707A4...) compared to other modes
+     * (D706A3...). This is specific to the scooter's firmware protocol.
+     * 
      * @param mode The desired driving mode
      * @return The hex command string
      */
     fun getDrivingModeCommand(mode: DrivingMode): String {
         return when (mode) {
-            DrivingMode.ECO -> "D707A45A00005"
+            DrivingMode.ECO -> "D707A45A00005"  // Special format for ECO mode
             DrivingMode.NORMAL -> "D706A30001AA"
             DrivingMode.SPORT -> "D706A30002AB"
             DrivingMode.DEVELOPER -> "D706A30003AC"
@@ -57,6 +63,9 @@ object ScooterCommandRepository {
 
     /**
      * Generates a command to set the speed limit.
+     * 
+     * Speed commands are firmware-specific lookup values and do not follow a simple
+     * algorithmic pattern. Each speed has a unique command associated with it.
      * 
      * @param speedKmh The desired speed limit in km/h (8-30)
      * @return The hex command string, or a default command if speed is out of range
@@ -97,11 +106,11 @@ object ScooterCommandRepository {
      * pattern where the mode value and checksum are embedded in the command string.
      * Format: D706A3[2-byte mode in big-endian][checksum]0D0A
      * 
-     * @param mode The mode number (0-254)
+     * @param mode The mode number (0-MAX_MODE)
      * @return The hex command string, or null if mode is out of range
      */
     fun getAdvancedModeCommand(mode: Int): String? {
-        if (mode !in 0..254) {
+        if (mode !in 0..MAX_MODE) {
             return null
         }
 
@@ -142,10 +151,10 @@ object ScooterCommandRepository {
      * Validates if a mode value is within the acceptable range.
      * 
      * @param mode The mode to validate
-     * @return true if the mode is valid (0-254), false otherwise
+     * @return true if the mode is valid (0-MAX_MODE), false otherwise
      */
     fun isValidMode(mode: Int): Boolean {
-        return mode in 0..254
+        return mode in 0..MAX_MODE
     }
 
     /**

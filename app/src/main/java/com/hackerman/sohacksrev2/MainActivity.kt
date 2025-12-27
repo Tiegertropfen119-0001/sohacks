@@ -291,8 +291,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Setup mode spinner for advanced mode selection
-        // Populates dropdown with modes 0-254, matching ScooterCommandRepository's supported range
-        val modeLabels = (0..254).map { "Mode $it" }
+        // Populates dropdown with modes 0-MAX_MODE, matching ScooterCommandRepository's supported range
+        val modeLabels = (0..ScooterCommandRepository.MAX_MODE).map { "Mode $it" }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, modeLabels)
         spinnerModes.adapter = adapter
         
