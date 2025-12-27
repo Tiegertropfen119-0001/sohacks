@@ -97,8 +97,10 @@ class ScooterCommandRepositoryTest {
         assertNotNull(command)
         // Expected: D706A30000A90D0A (mode bytes: 00 00, checksum: A9+0=A9)
         assertEquals("D706A30000A90D0A", command)
-        assertTrue(command!!.startsWith("D706A3"))
-        assertTrue(command.endsWith("0D0A"))
+        command?.let {
+            assertTrue(it.startsWith("D706A3"))
+            assertTrue(it.endsWith("0D0A"))
+        }
     }
 
     @Test
@@ -113,7 +115,9 @@ class ScooterCommandRepositoryTest {
     fun testGetAdvancedModeCommand_Mode254() {
         val command = ScooterCommandRepository.getAdvancedModeCommand(254)
         assertNotNull(command)
-        assertTrue(command!!.startsWith("D706A3"))
+        command?.let {
+            assertTrue(it.startsWith("D706A3"))
+        }
     }
 
     @Test
