@@ -10,6 +10,9 @@ A Bluetooth Low Energy (BLE) application for connecting to and configuring elect
 - Modified scooters may be **illegal on public roads** - check local regulations
 - **Not for use in public traffic**
 
+# Download 
+## https://github.com/Tiegertropfen119-0001/sohacks/releases
+
 ## Technical Overview
 
 ### Architecture
