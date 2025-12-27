@@ -207,5 +207,6 @@ See [LICENSE](LICENSE) file for details.
 
 ## Version History
 
+- **Rev 2.3**: Major refactoring - Clean architecture, comprehensive error handling, and documentation
 - **Rev 2.1**: Improved stability and error handling
 - **Rev 2.0**: Initial public release
