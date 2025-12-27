@@ -95,6 +95,7 @@ object ScooterCommandRepository {
      * 
      * This generates commands for modes 0-254. The command format follows a specific
      * pattern where the mode value and checksum are embedded in the command string.
+     * Format: D706A3[2-byte mode in big-endian][checksum]0D0A
      * 
      * @param mode The mode number (0-254)
      * @return The hex command string, or null if mode is out of range
@@ -104,12 +105,14 @@ object ScooterCommandRepository {
             return null
         }
 
-        // Generate command: D706A3[2-byte mode][checksum]0D0A
-        val modeHex = String.format("%04X", mode)
+        // Generate command: D706A3[byte1][byte2][checksum]0D0A
+        // Mode is split into 2 bytes: high byte (00) and low byte (mode value)
+        val byte1 = String.format("%02X", (mode shr 8) and 0xFF)  // High byte (always 00 for 0-254)
+        val byte2 = String.format("%02X", mode and 0xFF)          // Low byte
         val checksum = calculateChecksum(mode)
         val checksumHex = String.format("%02X", checksum)
         
-        return "D706A3$modeHex$checksumHex 0D0A".replace(" ", "")
+        return "D706A3$byte1$byte2${checksumHex}0D0A"
     }
 
     /**
